@@ -277,7 +277,7 @@
 
                     </div>
                     <div class="item-info-product ">
-                        <h4><a href="{{$url->getSingle()}}/{{$products[$i]->product_id}}">{{$products[$i]->title}}</a></h4>
+                        <h4><a class="title" href="{{$url->getSingle()}}/{{$products[$i]->product_id}}">{{$products[$i]->title}}</a></h4>
                         <div class="info-product-price">
                             <span class="item_price price_view">{{$products[$i]->pricespecial}} &#8363;</span>
                             <del class="price_view">{{$products[$i]->priceold}} &#8363;</del>
@@ -309,10 +309,10 @@
                     <span class="product-new-top">New</span>
                 </div>
                 <div class="item-info-product ">
-                    <h4><a href="{{$url->getSingle()}}/{{$products[$i]->product_id}}">{{$products[$i]->title}}</a></h4>
+                    <h4><a class="title" href="{{$url->getSingle()}}/{{$products[$i]->product_id}}">{{$products[$i]->title}}</a></h4>
                     <div class="info-product-price">
-                        <span class="item_price">{{$products[$i]->pricespecial}} &#8363;</span>
-                        <del>{{$products[$i]->priceold}} &#8363;</del>
+                        <span class="item_price price_view">{{$products[$i]->pricespecial}} &#8363;</span>
+                        <del class="price_view">{{$products[$i]->priceold}} &#8363;</del>
                     </div>
                     <a href="javascript:void(0)" class="item_add addToCart single-item hvr-outline-out button2">Add to cart</a>
                     <p style="display: none">{{$products[$i]->product_id}}</p> 
@@ -335,10 +335,10 @@
                 <span class="product-new-top">New</span>
             </div>
             <div class="item-info-product ">
-                <h4><a href="{{$url->getSingle()}}/{{$products[$i]->product_id}}">{{$products[$i]->title}}</a></h4>
+                <h4><a class="title" href="{{$url->getSingle()}}/{{$products[$i]->product_id}}">{{$products[$i]->title}}</a></h4>
                 <div class="info-product-price">
-                    <span class="item_price">{{$products[$i]->pricespecial}} &#8363;</span>
-                    <del>{{$products[$i]->priceold}}</del>
+                    <span class="item_price price_view">{{$products[$i]->pricespecial}} &#8363;</span>
+                    <del class="price_view">{{$products[$i]->priceold}} &#8363;</del>
                 </div>
                 <a href="javascript:void(0)" class="item_add addToCart single-item hvr-outline-out button2">Add to cart</a>
                 <p style="display: none">{{$products[$i]->product_id}}</p> 
@@ -384,19 +384,51 @@
 <script>
 $(() => {
    
-    function format_price_view(){
-        var  price = $(".price_view").text();
-        console.log(price);
-        // price = format_price(price);
+  function format_title(){
+    var  title = $(".title");    
+        for( var i=0; i<title.length; i++){
+            temp =  $(title[i]).text();
+            if(temp.length>46){
+                temp = temp.slice(0, 44) + " ...";
+                $(title[i]).text(temp);
+            }
 
-        // $(".price_view").text()
+        }
+  }
+
+    function format_price_view(){
+        var  price = $(".price_view");    
+        for( var i=0; i<price.length-1; i+=2){
+            var temp = $(price[i]).text();
+            var temp2 = $(price[i+1]).text();
+            if(temp==temp2)
+            {
+                temp = temp.slice(0, temp.length-2);
+                temp = format_price(temp);
+                $(price[i]).html(temp+" &#8363;");
+                $(price[i+1]).html("");
+            }
+            else{
+                temp = temp.slice(0, temp.length-2);
+                temp = format_price(temp);
+                $(price[i]).html(temp+" &#8363;");
+
+                temp2 = temp2.slice(0, temp2.length-2);
+                temp2 = format_price(temp2);
+                $(price[i+1]).html(temp2+" &#8363;");
+            }
+        }
+     
+//$(".price_view").each((e,i)=>console.log($(i).text()))
+
     }
 
     $(".addToCart").click(function(){
         var arr=[];
         var id=Number($(this).next().text());
-        var price=$(this).prev().find("span").text();
-        price=Number(price.slice(0, price.length-2));
+        var price=$(this).prev().find("span").text();     
+        price=price.slice(0, price.length-2);
+        price = Number(deformat_price(price));
         var title=$(this).prev().prev().text();
         var src=$(this).parent().prev().find("img").attr("src");     
         if(localStorage.getItem("cart")==null)
@@ -420,6 +452,7 @@ $(() => {
        
     });
     format_price_view();
+    format_title();
 });
 
 </script>

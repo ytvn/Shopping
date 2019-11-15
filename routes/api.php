@@ -14,8 +14,14 @@ use Illuminate\Http\Request;
 */
 Route::post("signup",'Apis\\Authentication\\RegisterController@create')->name("signup");
 Route::post("signin",'Apis\\Authentication\\LoginController@login')->name("signin");//thuc thi xac thuc
-// Route::get("/product", "Apis\\ProductController@index")->middleware("myauth");
 
+// Route::get("/product", "Apis\\ProductController@index")->middleware("myauth");
+//admin
+Route::get('/user/{id}','Admin\UserController@getUserInfo');
+Route::delete('admin/user/{id}','Admin\UserController@deleteUser');
+Route::post('/user/{id}','Admin\UserController@updateUser');
+
+//admin
 Route::middleware('myauth:api')->get('/product', "Apis\\ProductController@index");
 
 Route::post("reset",'Apis\\Authentication\\ResetPasswordController@sendToken')->name("reset");

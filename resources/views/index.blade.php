@@ -2,6 +2,11 @@
 
 @section('content')
 <!-- banner -->
+@if(isset($status))
+	@if($status=="fail" ||$status=="register_fail")
+		<script>$("#myModal4").modal("show")</script>
+	@endif
+@endif
 <div class="banner-grid">
 	<div id="visual">
 			<div class="slide-visual">

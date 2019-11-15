@@ -15,7 +15,9 @@ class User extends BaseModel
         $this->fillable = array_merge($this->fillable, array(
            "name",
            "email",
-           "password"
+           "address",
+           "password",
+           "role"
         ));
     }
 
@@ -27,16 +29,22 @@ class User extends BaseModel
         
     }
 
-    public function login($email, $password){
+    public function login($email, $password, $role){
         
-        $data=User::where('email',$email)->get();//sau khi select du lieu nay dang [{}] 
+        if($role=="")
+            $role="customer";
+        // return $role;
+        $data=User::where([['email',$email], ['role', $role]])->first();//sau khi select du lieu nay dang [{}] 
+       
+        if($data==null)
+            return null;
         $user=$this->castToModel($data, $this);//cast thanh user model
         if (!is_null($user)) {
             if (password_verify($password, $user->password)) {
                 return generateJWT(array(
                     "email" => $user->email,
                     "id" => $user->id,
-            
+                    
                 ));
             }
         }

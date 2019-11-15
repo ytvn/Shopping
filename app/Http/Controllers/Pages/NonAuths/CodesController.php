@@ -12,6 +12,8 @@ class CodeController extends NonAuthController
     }
     //
     public function index () {
+        if(isset($_GET['status']) && $_GET['status']=="success")
+            return $this->view("codes", ['status' => 'success']);     
         return $this->view("codes");
     }
 }

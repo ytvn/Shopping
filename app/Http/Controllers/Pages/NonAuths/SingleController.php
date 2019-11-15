@@ -29,6 +29,8 @@ class SingleController extends NonAuthController
         //     'price_old'=>$price_old,
         //     'price_special'=>$price_special
         // ];
+        if(isset($_GET['status']) && $_GET['status']=="success")
+            return $this->view("single", array_merge(['details'=>$detail,"srcs"=>$src,"decriptions"=>$decription,'price_old'=>$price_old,'price_special'=>$price_special],['status' => 'success']) );
         return $this->view("single",[
             'details'=>$detail,
             "srcs"=>$src,

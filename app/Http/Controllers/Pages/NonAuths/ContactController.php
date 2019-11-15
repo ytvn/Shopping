@@ -11,6 +11,8 @@ class ContactController extends NonAuthController
     }
     //
     public function index () {
+        if(isset($_GET['status']) && $_GET['status']=="success")
+            return $this->view("contact", ['status' => 'success']);  
         return $this->view("contact");
     }
 }

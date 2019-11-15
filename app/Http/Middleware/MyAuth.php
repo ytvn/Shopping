@@ -21,6 +21,8 @@ class MyAuth
             if(verifyJWT($_COOKIE['token']))
                 return $next($request);
         } 
-        return redirect("http://localhost:8000/#open-login-modal");     
+        // return redirect("http://localhost:8000/#open-login-modal");  
+
+        return redirect()->route('adminLoginPage'); 
     }
 }

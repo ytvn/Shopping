@@ -112,8 +112,42 @@
 </div>
 <!-- //banner-top -->
 <!-- banner -->
-
+<!-- Modal -->
+<div class="modal fade" id="loginSuccess" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Smart shop</h4>
+        </div>
+        <div class="modal-body">
+          <p id="html">You're logined</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+</div>
+@if(isset($status))
+	@if($status=="success")
+		<script>
+			$("#html").text("Sign up success!!!");
+			$("#loginSuccess").modal("show")
+		</script>
+	@elseif ($status=="register_fail")
+		<script>
+			$("#html").text("You're logined");
+			$("#loginSuccess").modal("show");
+		</script>
+	@endif
+@endif
 <script>
+var newURL = location.href.split("?")[0];
+window.history.pushState('object', document.title, newURL);
 	function display_total(){
 		var items=JSON.parse(localStorage.getItem("cart")); 
 		if(items==null){

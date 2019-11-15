@@ -30,11 +30,12 @@ abstract class BaseModel extends Model
     abstract protected function before_update(BaseModel &$new_doc, BaseModel &$old_doc);
 
     protected function castToModel( $model, $model_name) {
-        $data=json_decode($model[0]);
+        $data=json_decode($model);
         $doc = new $model_name ();
-        foreach ($data as $key => $value) {
-            $doc->$key = $value;
-        }
+      
+        foreach ($data as $key => $value) {    
+                $doc->$key = $value;       
+        }    
         return $doc;
     }
     public function getfillable(){

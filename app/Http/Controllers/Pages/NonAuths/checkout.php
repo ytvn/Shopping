@@ -13,7 +13,8 @@ class checkout extends NonAuthController
     
  
     public function index () {
-       
+        if(isset($_GET['status']) && $_GET['status']=="success")
+            return $this->view("checkout", ['status' => 'success']);     
        return $this->view('checkout');
     }
     

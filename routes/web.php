@@ -19,8 +19,19 @@ Route::get("user", function(){
     return response()->json($arr);
 });
 
+
+//Admin page
+Route::get("admin/login","Admin\\AdminPageController@loginPage")->name("adminLoginPage");
+Route::get('/admin','Admin\\AdminPageController@renderAdminPage');
+Route::get('/admin/manageStaff','Admin\\AdminPageController@renderStaff');
+Route::get('admin/manageUser','Admin\\AdminPageController@renderUser');
+Route::get('admin/manageProduct','Admin\\AdminPageController@renderProduct')->name('manageProduct');
+
+//Admin page
+
 Route::get("checkout", 'Pages\\NonAuths\\checkout@index');
-Route::get(UrlUtil::home(), 'Pages\\NonAuths\\HomeController@index');
+// Route::get(UrlUtil::home(), 'Pages\\NonAuths\\HomeController@index');
+Route::get("/", 'Pages\\NonAuths\\HomeController@index');
 Route::get(UrlUtil::codes(), 'Pages\\NonAuths\CodesController@index');
 // Route::get(UrlUtil::checkout(), 'Pages\\NonAuths\\CheckOutController@index');
 Route::get(UrlUtil::electronic(), 'Pages\\NonAuths\\ElectronicController@index');

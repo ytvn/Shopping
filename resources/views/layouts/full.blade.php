@@ -46,6 +46,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 @include('partials.banner', [])
 
 <!-- //banner -->
+
+<!-- login -->
+@include('partials.login', [])
 <!-- content -->
 
 @yield('content')
@@ -58,8 +61,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 @include('partials.footer', [])
 
 <!-- footer -->
-<!-- login -->
-@include('partials.login', [])
+
 @include('partials.forgot', [])
 <!-- //login -->
 <script src="{{asset('js/main.js')}}"></script>

@@ -28,18 +28,26 @@ abstract class ApiController extends CookieController
         $model = $this->model;
         $doc = new $model();   
         $arr=[];
-        foreach ($_POST as $key => $value) {
-            // echo $key . "===" . $value . "<br>";
-            
+        if(array_key_exists("returnurl",$_GET))
+            $returnUrl=$_GET['returnurl'];
+        foreach ($_POST as $key => $value) {       
             if (in_array($key, $doc->getfillable() )) {
                 $doc->$key = $value;
             }
         }
         // return $key;
         $doc->before_create($doc);
-        $doc->save();
+        try{
+            $doc->save();
+        }
+        catch(\Illuminate\Database\QueryException $ex){ 
+            // dd($ex->getMessage()); 
+            return redirect("/?status=fail");
+           
+        }
         // array_push($arr, $doc);
-        return response()->json($doc);
+        return redirect($returnUrl ."?status=register_success");
+        // return response()->json($doc);
         
     }
     public function read() {
