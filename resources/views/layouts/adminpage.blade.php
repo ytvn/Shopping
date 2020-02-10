@@ -130,7 +130,7 @@
 
                         <!--quản lý sản phẩm -->
                         <li>
-                            <a href="/admin/manageProduct" class="waves-effect"><i class="mdi mdi-format-font"></i> <span>
+                            <a href="/admin/manageProduct/1" class="waves-effect"><i class="mdi mdi-format-font"></i> <span>
                                     Product Management </span> </a>
                         </li>
 
@@ -203,7 +203,8 @@
     <script src="{{asset('assets/plugins/datatables/dataTables.bootstrap4.min.js')}}"></script>
     <script>
         $(document).ready(function () {
-        $('#tableStaffs').DataTable()
+        // $('#tableStaffs').DataTable()
+        console.log(  $('#tableStaffs').DataTable());
         });
     </script>
 

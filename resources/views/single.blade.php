@@ -16,7 +16,7 @@
 				<div class="flexslider">
 					<ul class="slides">
                         @foreach($srcs as $src)
-                        <li data-thumb="$src">
+                        <li data-thumb="{{$src}}">
 							<div class="thumb-image"> <img src={{$src}} data-imagezoom="true" class="img-responsive"> </div>
                         </li>
                         @endforeach

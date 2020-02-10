@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Pages\NonAuths;
 
 use App\Http\Controllers\Pages\NonAuthController;
 use Illuminate\Http\Request;
-
+session_start();
 class HomeController extends NonAuthController
 {
     public function __construct() {

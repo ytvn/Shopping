@@ -34,11 +34,9 @@ class LoginController extends ApiController
         $token=$doc->login($email, $password, $role);
        
         if($token!=null){
-            // $_SESSION["token"] = $token;
-            setcookie("token", $token, time()+600000000);
-            // setCookie($token);
-            return redirect($returnUrl ."?status=success"); 
-            
+            // $_SESSION["token"] = $token; 
+            setcookie("token", $token, time()+600000000, '/');
+           return  redirect()->route($_SESSION['URL']);        
         }
         else if($role!="")
             return redirect("/admin/login");

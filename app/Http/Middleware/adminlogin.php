@@ -2,10 +2,9 @@
 
 namespace App\Http\Middleware;
 
-require_once(__DIR__ ."/../../libs/jwt.php");
 use Closure;
-// session_start();
-class MyAuth
+
+class adminlogin
 {
     /**
      * Handle an incoming request.
@@ -15,16 +14,15 @@ class MyAuth
      * @return mixed
      */
     public function handle($request, Closure $next)
-    {     
-        // session_unset();
-        if(isset($_COOKIE['token'])) {
+    {
+          // session_unset();
+          if(isset($_COOKIE['tokenadmin'])) {
             // return "fdsf";
             // return $_COOKIE['token'];
-            if(verifyJWT($_COOKIE['token']))
+            if(verifyJWT($_COOKIE['tokenadmin']))
                 return $next($request);
         } 
-        return redirect("http://localhost:8000/#open-login-modal");  
 
-        // return redirect()->route('adminLoginPage'); 
+        return redirect()->route('adminLoginPage'); 
     }
 }

@@ -1,3 +1,8 @@
+$.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+});
 function html(element, rem, close, price){
 	return `
 		<tr class="`+ rem + ` selected_item">
@@ -124,6 +129,57 @@ function html(element, rem, close, price){
 		}
 		
 	}
+
+	function charge(){
+		$(".charge").click(function(){
+			id = $(".user_id").text();
+			address =$("#user_address").val();
+			phone =$("#user_phone").val();
+			if(address=="")
+				$("#error_address").text("Please enter your address");	
+			if(phone =="")
+				$("#error_phone").text("Please enter your phone number");
+			if(address=="" || phone=="")
+				return;
+			else{
+				$("#error_address").text("");
+				$("#error_phone").text("");
+			}
+			data=JSON.parse(localStorage.getItem("cart"));  
+			var total = 0;
+			data.forEach(function(x){
+				total += x.price * x.quantity;
+			});
+			data.forEach(function(x){
+				x['product_id'] = x['id'];
+				delete x.id;
+				delete x.price;
+				delete x.title;
+				delete x.src;
+			});
+			
+			data.push({'total': total});
+			data.push({"user_id" : id});
+			data.push({"phone" : phone});
+			data.push({"address" : address});
+			$.ajax({
+				url: `api/checkout`,
+				type: 'POST',
+				contentType:'application/json',
+				data: JSON.stringify(data),
+				dataType:'json',
+				success: function (datar) {
+					// $("#btnSubmitUpdate").prop("disabled", false);
+					// location.reload();#open-success-modal
+					localStorage.removeItem("cart");
+					window.location.href ="/#open-success-modal";
+					console.log(datar);
+				}
+			  });
+
+			// console.log(data);
+		});
+	}
 	$(document).ready(function(){
 		
 		init();
@@ -132,6 +188,6 @@ function html(element, rem, close, price){
 		remove_item();
 		count_total();
 		empty_cart();
-		
+		charge();
 
 	});

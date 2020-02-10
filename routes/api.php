@@ -17,9 +17,20 @@ Route::post("signin",'Apis\\Authentication\\LoginController@login')->name("signi
 
 // Route::get("/product", "Apis\\ProductController@index")->middleware("myauth");
 //admin
-Route::get('/user/{id}','Admin\UserController@getUserInfo');
-Route::delete('admin/user/{id}','Admin\UserController@deleteUser');
-Route::post('/user/{id}','Admin\UserController@updateUser');
+Route::get('/user/{id}','Admin\UserController@getUserInfo');//xem detal user
+Route::delete('admin/user/{id}','Admin\UserController@deleteUser');//xoa 1 user
+Route::post('/user/{id}','Admin\UserController@updateUser');//update 1 user
+Route::post('/admin/add/user','Admin\UserController@addUser');//update 1 user
+
+Route::post('/admin/add/product','Admin\ProductController@addProduct');// add product
+Route::get('/admin/get/product/{ProductID}','Admin\ProductController@getProductInfo');// view product
+Route::delete('/admin/delete/product/{ProductID}','Admin\ProductController@deleteProduct');// delete product
+Route::post('/admin/update/product','Admin\ProductController@updateProduct');// delete product
+
+//thanh toan
+Route::post('checkout', 'Apis\\CheckOutController@create');
+
+//admin
 
 //admin
 Route::middleware('myauth:api')->get('/product', "Apis\\ProductController@index");

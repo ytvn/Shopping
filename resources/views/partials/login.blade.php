@@ -122,11 +122,15 @@
 		$("#register").attr("action", x+window.location.href);
 		y=$(".signin").attr("action");
 		$(".signin").attr("action", y+window.location.href);
+		console.log(window.location.href);
 	}
 	$(() => {
 		isEmpety();
 		check_repass();
-		setReturnUrl();
+		// setReturnUrl();
+		if (window.location.hash === "#open-success-modal") {
+			$("#charge_success").modal("show");
+		}
 		if (window.location.hash === "#open-login-modal") {
 			$("#myModal4").modal("show");
 		}

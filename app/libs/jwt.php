@@ -33,6 +33,11 @@ function verifyJWT(string $jwt): bool
     $rawSignature = hash_hmac('sha256', $dataEncoded, SECRET_KEY, true);
     return hash_equals($rawSignature, $signature);
 }
+
+function getPayLoad(string $jwt){
+    list($headerEncoded, $payloadEncoded, $signatureEncoded) = explode('.', $jwt);
+    return base64UrlDecode($payloadEncoded);
+}
 // $payload = [
 //     "sub"        => "1234567890",
 //     "name"        => "John Doe",

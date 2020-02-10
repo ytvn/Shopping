@@ -75,6 +75,34 @@ $(function(){
             }
         }
     });
+    $('#inline-category').editable({
+        prepend: "not selected",
+        mode: 'inline',
+        source: [
+            {value: 'quan_ao_nam', text: 'Quần áo nam'},
+            {value: 'giay_dep_nam', text: 'Giày dép nam'},
+            {value: 'dong_ho_nam', text: 'Đồng hồ nam'},
+            {value: 'tui_xach_bop_vi_nam', text: 'Túi xách, bóp, ví nam'},
+            {value: 'that_lung_day_nit_nam', text: 'Thắt lưng dây nịt nam'},
+            {value: 'phu_kien_nam', text: 'Phụ kiện nam'},
+            {value: 'vay_dam_nu', text: 'Váy đầm nữ'},
+            {value: 'quan_ao_nu', text: 'Quân áo nữ'},
+            {value: 'dong_ho_nu', text: 'Đồng hồ nữ'},
+            {value: 'giay_dep_nu', text: 'Giày dép nữ'},
+            {value: 'tui_xach_bop_vi_nu', text: 'Túi xách, bóp, ví nữ'},
+            {value: 'phu_kien_nu', text: 'Phụ kiện nữ'},
+        ],
+        display: function(value, sourceData) {
+            var colors = {"": "gray", 1: "green", 2: "blue"},
+                elem = $.grep(sourceData, function(o){return o.value == value;});
+
+            if(elem.length) {
+                $(this).text(elem[0].text).css("color", colors[value]);
+            } else {
+                $(this).empty();
+            }
+        }
+    });
 
     $('#inline-group').editable({
         showbuttons: false,

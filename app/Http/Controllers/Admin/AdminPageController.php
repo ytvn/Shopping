@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
+
 // use App\Providers\shoes;
 
 class AdminPageController extends Controller
@@ -12,7 +13,7 @@ class AdminPageController extends Controller
     public function __construct()
     {
       
-        // $this->middleware('myauth');
+        // $this->middleware('adminlogin');
         // $this->user = Auth::user();
     }
 
@@ -28,16 +29,26 @@ class AdminPageController extends Controller
         return view('adminpage.staffManagement',['users'=>$users]);
     }
     public function renderUser(){
-        return view('adminpage.UserManagement');
+        $users=DB::select('select * from users where role in ("customer")');
+        return view('adminpage.staffManagement',['users'=>$users]);
     }
-    public function renderProduct(){
-        $shoes=DB::table('shoes')
-                                 ->join('category', 'shoes.categoryID', '=', 'category.id')
-                                 ->select('shoes.id','shoes.name','category.categoryName','shoes.inStock')
-                                 ->get();
-        $category=DB::table('category')
+    public function renderProduct($page){
+        $count_product= DB::table('products')->count();
+        $page_num = ceil($count_product / 100);
+        if($page > $page_num){
+            $page = $page_num;
+        }
+
+        $products=DB::table('products')
+             ->join('categorys', 'products.category_id', '=', 'categorys.category_id')
+             ->select('product_id','title','category_name','pricespecial')
+             ->offset(($page-1) * 100)
+            ->limit(100)
+            ->get();
+        $category=DB::table('categorys')
                                 ->get();
-        return view('adminpage.ProductManagement',['shoes'=>$shoes],['category'=>$category]);
+      
+        return view('adminpage.ProductManagement',['products'=>$products],['categorys'=>$category]);
     }
     public function deleteProduct($id){
         DB::table('shoes')

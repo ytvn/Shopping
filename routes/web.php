@@ -25,11 +25,10 @@ Route::get("admin/login","Admin\\AdminPageController@loginPage")->name("adminLog
 Route::get('/admin','Admin\\AdminPageController@renderAdminPage');
 Route::get('/admin/manageStaff','Admin\\AdminPageController@renderStaff');
 Route::get('admin/manageUser','Admin\\AdminPageController@renderUser');
-Route::get('admin/manageProduct','Admin\\AdminPageController@renderProduct')->name('manageProduct');
-
+Route::get('admin/manageProduct/{page}','Admin\\AdminPageController@renderProduct')->name('manageProduct');
 //Admin page
 
-Route::get("checkout", 'Pages\\NonAuths\\checkout@index');
+Route::get("checkout", 'Pages\\NonAuths\\checkout@index')->name('viewCart');
 // Route::get(UrlUtil::home(), 'Pages\\NonAuths\\HomeController@index');
 Route::get("/", 'Pages\\NonAuths\\HomeController@index');
 Route::get(UrlUtil::codes(), 'Pages\\NonAuths\CodesController@index');
@@ -39,6 +38,9 @@ Route::get(UrlUtil::mens(), 'Pages\\NonAuths\\MensController@clothing');
 Route::get('/single/{id}', 'Pages\\NonAuths\\SingleController@index');
 Route::get(UrlUtil::womens(), 'Pages\\NonAuths\\WomensController@index');
 Route::get(UrlUtil::contact(), 'Pages\\NonAuths\\ContactController@index')->name("contact");
+
+
+Route::get('thanhtoan', 'Pages\\Auths\\CheckOutController@index')->name("thanhtoan");
 
 Route::group(['prefix'=>UrlUtil::mens()], function(){
     Route::get(UrlUtil::clothings().'/{page}', 'Pages\\NonAuths\\MensController@clothing')->where('page', '[0-9]+');

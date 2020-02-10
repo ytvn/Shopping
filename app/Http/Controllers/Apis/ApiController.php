@@ -14,7 +14,8 @@ abstract class ApiController extends CookieController
     public function __construct()
     {
         parent::__construct();
-        $this->middleware('auth');
+        // $this->middleware('auth');
+        $this->middleware('myauth');
         $this->user = Auth::user();
     }
 

@@ -26,6 +26,8 @@
 				<!-- <tr></tr> clien side render -->
 			</table>
 		</div>
+			<button type="button" class="btn btn-primary" onclick="window.location.href='/thanhtoan'">Check out</button>
+		<div> 
 		<div class="checkout-left">
 
 				<div class="checkout-right-basket animated wow slideInRight" data-wow-delay=".5s">

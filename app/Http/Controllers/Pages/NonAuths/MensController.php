@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Pages\NonAuths;
 use App\Http\Controllers\Pages\NonAuthController;
 use Illuminate\Http\Request;
 use App\Models\Product;
+session_start();
 class MensController extends NonAuthController
 {
     public function __construct() {

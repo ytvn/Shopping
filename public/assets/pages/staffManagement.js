@@ -98,7 +98,6 @@ $('#btnSubmitUpdate').click(function (e) {
             location.reload();
         },
         error: function (e) {
-
             $("#btnSubmitUpdate").prop("disabled", false);
         }
     });
